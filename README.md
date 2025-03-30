@@ -67,7 +67,7 @@ A modern, collaborative learning platform designed to make programming education
 git clone https://github.com/yourusername/syntax-learn.git
 ```
 
-2. Open `splash.html` in your browser
+2. Open `index.html` in your browser
 3. Explore the platform!
 
 ## 📱 Responsive Design
@@ -92,13 +92,10 @@ Contributions are welcome! Feel free to:
 - 💡 Suggest features
 - 🔧 Submit pull requests
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- 👥 All contributors
+- 👥 Team AquaByte
 - 🎨 Design inspiration from modern learning platforms
 - 📚 Educational resources and programming quotes
 
