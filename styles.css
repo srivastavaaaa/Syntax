@@ -1,24 +1,46 @@
+/* Theme Transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Base Theme Styles */
 :root {
+    --border-radius: 12px;
+    --spacing-unit: 1rem;
+    --header-height: 60px;
+    --sidebar-width: 240px;
     --primary-color: #4f46e5;
     --secondary-color: #6366f1;
     --background-color: #f8f9fa;
     --text-color: #333;
-    --border-radius: 15px;
-    --sidebar-width: 240px;
     --right-sidebar-width: 300px;
+    --bg-primary: #f8f9fa;
+    --bg-secondary: white;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --hover-color: #f0f0f0;
+    --accent-color: #4f46e5;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --card-bg: white;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --border-color: #eee;
 }
 
 body {
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     min-height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Navigation */
 .navbar {
     height: 60px;
-    border-bottom: 1px solid #eee;
-    background-color: white;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
 }
 
 .search-box, .theme-toggle, .profile-icon {
@@ -28,7 +50,7 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: #f8f9fa;
+    background-color: var(--hover-color);
     cursor: pointer;
 }
 
@@ -49,8 +71,8 @@ body {
     width: var(--sidebar-width);
     height: calc(100vh - 60px);
     padding: 2rem;
-    background-color: white;
-    border-right: 1px solid #eee;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
 }
 
 .nav-links {
@@ -65,14 +87,14 @@ body {
     gap: 1rem;
     padding: 1rem;
     border-radius: var(--border-radius);
-    color: var(--text-color);
+    color: var(--text-primary);
     text-decoration: none;
     transition: all 0.2s ease;
     margin-bottom: 0.5rem;
 }
 
 .nav-link:hover {
-    background-color: #f8f9fa;
+    background-color: var(--hover-color);
 }
 
 .nav-link.active {
@@ -102,10 +124,10 @@ body {
 
 /* Course Cards */
 .trending-courses, .recently-watched {
-    background-color: white;
+    background-color: var(--bg-secondary);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px var(--shadow-color);
     width: 100%;
 }
 
@@ -116,12 +138,12 @@ body {
     padding: 1rem;
     border-radius: var(--border-radius);
     transition: all 0.2s ease;
-    background-color: white;
+    background-color: var(--bg-secondary);
     width: 100%;
 }
 
 .course-progress-card:not(:last-child) {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 0.5rem;
     padding-bottom: 1rem;
 }
@@ -190,7 +212,7 @@ body {
 }
 
 .recent-course-card:not(:last-child) {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 0.5rem;
     padding-bottom: 1rem;
 }
@@ -208,8 +230,8 @@ body {
     width: var(--right-sidebar-width);
     height: calc(100vh - 60px);
     padding: 2rem;
-    background-color: white;
-    border-left: 1px solid #eee;
+    background-color: var(--bg-secondary);
+    border-left: 1px solid var(--border-color);
     overflow-y: auto;
 }
 
@@ -229,7 +251,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #f0f0f0;
+    background-color: var(--hover-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,7 +275,7 @@ body {
 .pomodoro-timer {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .timer-display {
@@ -290,10 +312,10 @@ body {
 /* Page Description */
 .page-description {
     padding: 2rem;
-    background-color: white;
+    background-color: var(--bg-secondary);
     border-radius: var(--border-radius);
     margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .page-description h1 {
@@ -351,17 +373,17 @@ body {
 }
 
 .tool-card {
-    background-color: white;
+    background-color: var(--bg-secondary);
     border-radius: var(--border-radius);
     padding: 2rem;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px var(--shadow-color);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tool-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .tool-icon {
@@ -402,7 +424,7 @@ body {
 .stopwatch {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .lap-times {
@@ -441,7 +463,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     font-size: 0.875rem;
 }
 
@@ -461,10 +483,10 @@ body {
 
 /* Todo List Styles */
 .todo-section {
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .todo-input-group {
@@ -476,7 +498,7 @@ body {
 .todo-input-group input {
     flex: 1;
     padding: 0.5rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
 }
 
@@ -488,16 +510,16 @@ body {
 
 .todo-filters button {
     padding: 0.25rem 1rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     background: transparent;
     border-radius: 6px;
     color: #666;
 }
 
 .todo-filters button.active {
-    background: #007bff;
+    background: var(--accent-color);
     color: white;
-    border-color: #007bff;
+    border-color: var(--accent-color);
 }
 
 .todo-list {
@@ -510,7 +532,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0.75rem;
-    background: #f8f9fa;
+    background: var(--hover-color);
     border-radius: 6px;
     gap: 0.75rem;
 }
@@ -529,11 +551,11 @@ body {
 
 /* Todo List Widget Styles */
 .todo-list-widget {
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 12px;
     padding: 1.5rem;
     margin-top: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .widget-header {
@@ -550,7 +572,7 @@ body {
 }
 
 .view-all {
-    color: #007bff;
+    color: var(--accent-color);
     text-decoration: none;
     font-size: 0.9rem;
 }
@@ -563,7 +585,7 @@ body {
 
 .todo-preview .todo-item {
     padding: 0.5rem;
-    background: #f8f9fa;
+    background: var(--hover-color);
 }
 
 .todo-preview .todo-item input[type="checkbox"] {
@@ -575,4 +597,102 @@ body {
     font-size: 0.9rem;
     color: #333;
     cursor: pointer;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: var(--hover-color);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.theme-toggle i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover i {
+    transform: rotate(15deg);
+}
+
+/* Links */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-color);
+    opacity: 0.9;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    opacity: 0.9;
+}
+
+/* Input Fields */
+input, textarea, select {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* Code Blocks */
+pre, code {
+    background-color: var(--code-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+/* Status Colors */
+.text-success { color: var(--success-color) !important; }
+.text-danger { color: var(--danger-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+.text-info { color: var(--info-color) !important; }
+
+.bg-success { background-color: var(--success-color) !important; }
+.bg-danger { background-color: var(--danger-color) !important; }
+.bg-warning { background-color: var(--warning-color) !important; }
+.bg-info { background-color: var(--info-color) !important; }
+
+/* Dark Theme Specific Overrides */
+.theme-dark .card {
+    background-color: var(--bg-secondary);
+}
+
+.theme-dark .nav-link {
+    color: var(--text-secondary);
+}
+
+.theme-dark .nav-link:hover,
+.theme-dark .nav-link.active {
+    color: var(--text-primary);
+    background-color: var(--hover-color);
 } 
