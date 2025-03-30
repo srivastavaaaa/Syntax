@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntax - Your All-in-One Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .streak-icon { color: #ff8c00; }
+        .time-icon { color: #0d6efd; }
+        .points-icon { color: #198754; }
+        .completion-icon { color: #6f42c1; }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .language-progress {
+            margin-bottom: 1.5rem;
+        }
+
+        .language-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .language-name {
+            font-weight: 500;
+        }
+
+        .language-percentage {
+            color: #6c757d;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .python-bar { background: #3776ab; }
+        .javascript-bar { background: #f7df1e; }
+        .java-bar { background: #b07219; }
+        .cpp-bar { background: #f34b7d; }
+        .php-bar { background: #4F5D95; }
+
+        .achievements-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .achievement-icon {
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+
+        .achievement-info {
+            flex: 1;
+        }
+
+        .achievement-title {
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .achievement-date {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        .activity-feed {
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .github-activity {
+            margin-top: 1rem;
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #586069;
+        }
+
+        .activity-year {
+            font-weight: 500;
+        }
+
+        .day-labels {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 4px;
+            font-size: 0.7rem;
+            color: #586069;
+            text-align: center;
+        }
+
+        .day-labels span {
+            padding: 2px 0;
+        }
+
+        .activity-calendar {
+            display: grid;
+            gap: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-row {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .day-cell {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            background: #ebedf0;
+            transition: background-color 0.2s ease;
+        }
+
+        .day-cell:hover {
+            border: 1px solid rgba(27, 31, 35, 0.1);
+        }
+
+        .day-cell.level-0 { background: #ebedf0; }
+        .day-cell.level-1 { background: #9be9a8; }
+        .day-cell.level-2 { background: #40c463; }
+        .day-cell.level-3 { background: #30a14e; }
+        .day-cell.level-4 { background: #216e39; }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #24292e;
+        }
+
+        .recently-watched {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .recent-course-card {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            background: #f8f9fa;
+        }
+
+        .recent-course-card:hover {
+            background: #f1f3f5;
+            transform: translateX(5px);
+        }
+
+        .recent-course-card .course-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: var(--primary-color, #0d6efd);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .recent-course-card .course-info {
+            flex: 1;
+        }
+
+        .recent-course-card .course-info h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 0 0.25rem 0;
+            color: #1a1a1a;
+        }
+
+        .recent-course-card .duration {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .trending-courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-progress-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+
+        .course-progress-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .course-progress-card .course-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: var(--primary-color, #0d6efd);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .course-progress-card .course-info {
+            flex: 1;
+        }
+
+        .course-progress-card .course-info h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+            color: #1a1a1a;
+        }
+
+        .course-progress-card .progress {
+            height: 8px;
+            margin-bottom: 0.5rem;
+            background: #f8f9fa;
+        }
+
+        .course-progress-card .progress-bar {
+            background: var(--primary-color, #0d6efd);
+            border-radius: 4px;
+        }
+
+        .course-progress-card .progress-text {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .pomodoro-timer {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .timer-display {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .timer-display .time {
+            font-size: 2.5rem;
+            font-weight: 500;
+            font-family: monospace;
+            color: #1a1a1a;
+        }
+
+        .timer-display .timer-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timer-controls .btn {
+            flex: 1;
+            padding: 0.5rem;
+        }
+
+        .course-meta {
+            font-size: 0.875rem;
+            color: #6c757d;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .todo-list-widget {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .view-all {
+            font-size: 0.875rem;
+            color: #6c757d;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .view-all:hover {
+            color: #0d6efd;
+        }
+
+        .todo-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .todo-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .todo-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #dee2e6;
+            cursor: pointer;
+        }
+
+        .todo-item label {
+            font-size: 0.9rem;
+            color: #212529;
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .todo-item input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container-fluid px-4">
+            <button class="navbar-toggler border-0" type="button" id="sidebar-toggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="#">Syntax</a>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="study.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Study</span>
+                </a>
+                <a href="friends.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Friends</span>
+                </a>
+                <a href="progress.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="tools.html" class="nav-link">
+                    <i class="fas fa-wrench"></i>
+                    <span>Tools</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="container-fluid px-4">
+                <!-- Trending Courses -->
+                <section class="mb-5">
+                    <h2 class="section-title">Trending Courses</h2>
+                    <div class="trending-courses">
+                        <div class="course-progress-card">
+                            <div class="course-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Machine Learning Fundamentals</h3>
+                                <span class="course-meta">12K students • Updated 2024</span>
+                            </div>
+                        </div>
+                        <div class="course-progress-card">
+                            <div class="course-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Web Development Bootcamp</h3>
+                                <span class="course-meta">8.5K students • Updated 2024</span>
+                            </div>
+                        </div>
+                        <div class="course-progress-card">
+                            <div class="course-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Mobile App Development</h3>
+                                <span class="course-meta">6.2K students • Updated 2024</span>
+                            </div>
+                        </div>
+                        <div class="course-progress-card">
+                            <div class="course-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>SQL & Database Design</h3>
+                                <span class="course-meta">5.8K students • Updated 2024</span>
+                            </div>
+                        </div>
+                        <div class="course-progress-card">
+                            <div class="course-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Cybersecurity Essentials</h3>
+                                <span class="course-meta">7.3K students • Updated 2024</span>
+                            </div>
+                        </div>
+                        <div class="course-progress-card">
+                            <div class="course-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Cloud Computing & DevOps</h3>
+                                <span class="course-meta">4.9K students • Updated 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Overview -->
+                <div class="stats-grid mb-5">
+                    <div class="stat-card">
+                        <div class="stat-icon streak-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-value">15</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon time-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-value">42h</div>
+                        <div class="stat-label">Total Time Watched</div>
+                    </div>
+                </div>
+
+                <!-- Recently Watched -->
+                <section class="mb-5">
+                    <h2 class="section-title">Recently Watched</h2>
+                    <div class="recently-watched">
+                        <div class="recent-course-card">
+                            <div class="course-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Python for Beginners</h3>
+                                <span class="duration">2h 15m</span>
+                            </div>
+                        </div>
+                        <div class="recent-course-card">
+                            <div class="course-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>React Fundamentals</h3>
+                                <span class="duration">1h 45m</span>
+                            </div>
+                        </div>
+                        <div class="recent-course-card">
+                            <div class="course-icon">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <div class="course-info">
+                                <h3>Data Structures</h3>
+                                <span class="duration">3h 30m</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="activity-feed">
+                <h2 class="section-title">Learning Activity</h2>
+                <div class="github-activity">
+                    <div class="activity-header">
+                        <span>Your contributions</span>
+                        <span class="activity-year">2024</span>
+                    </div>
+                    <div class="day-labels">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+                    <div class="activity-calendar">
+                        <!-- Week 1 -->
+                        <div class="calendar-row">
+                            <div class="day-cell level-0" title="No activity"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-3" title="3 hours"></div>
+                            <div class="day-cell level-4" title="4+ hours"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                        </div>
+                        <!-- Week 2 -->
+                        <div class="calendar-row">
+                            <div class="day-cell level-1" title="1 hour"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-3" title="3 hours"></div>
+                            <div class="day-cell level-0" title="No activity"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-4" title="4+ hours"></div>
+                            <div class="day-cell level-3" title="3 hours"></div>
+                        </div>
+                        <!-- Week 3 -->
+                        <div class="calendar-row">
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-4" title="4+ hours"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-3" title="3 hours"></div>
+                            <div class="day-cell level-0" title="No activity"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                        </div>
+                        <!-- Week 4 -->
+                        <div class="calendar-row">
+                            <div class="day-cell level-3" title="3 hours"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                            <div class="day-cell level-4" title="4+ hours"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                            <div class="day-cell level-3" title="3 hours"></div>
+                            <div class="day-cell level-0" title="No activity"></div>
+                        </div>
+                        <!-- Current Week -->
+                        <div class="calendar-row">
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-3" title="3 hours"></div>
+                            <div class="day-cell level-4" title="4+ hours"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                            <div class="day-cell level-2" title="2 hours"></div>
+                            <div class="day-cell level-0" title="No activity"></div>
+                            <div class="day-cell level-1" title="1 hour"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pomodoro-timer">
+                <h2 class="section-title">Pomodoro Timer</h2>
+                <div class="timer-display">
+                    <span class="time">25:00</span>
+                    <p class="timer-label">Focus Session</p>
+                </div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" id="start-timer">Start</button>
+                    <button class="btn btn-secondary" id="reset-timer">Reset</button>
+                </div>
+            </div>
+
+            <div class="todo-list-widget">
+                <div class="widget-header">
+                    <h3>Quick Tasks</h3>
+                    <a href="tools.html#todo-list" class="view-all">View All</a>
+                </div>
+                <div class="todo-preview">
+                    <!-- Quick tasks will be rendered here -->
+                </div>
+                <a href="tools.html#todo-list" class="btn btn-primary btn-sm mt-3">
+                    <i class="fas fa-plus"></i> Add New Task
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="todo.js"></script>
+</body>
+</html>

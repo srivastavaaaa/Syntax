@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools - Syntax Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+            height: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+
+        .tool-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #212529;
+        }
+
+        .tool-description {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: 500;
+            text-align: center;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-controls .btn {
+            width: 100%;
+            padding: 0.5rem;
+        }
+
+        .timer-settings {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-setting {
+            flex: 1;
+        }
+
+        .timer-setting label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .calculator-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: right;
+            font-family: monospace;
+            font-size: 1.5rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calculator-btn {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-btn:hover {
+            background: #e9ecef;
+        }
+
+        .calculator-btn.operator {
+            background: #e3f2fd;
+            color: #0d6efd;
+        }
+
+        .calculator-btn.equals {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .lap-times {
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .lap-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+
+        .lap-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container-fluid px-4">
+            <button class="navbar-toggler border-0" type="button" id="sidebar-toggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="#">Syntax</a>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="study.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Study</span>
+                </a>
+                <a href="friends.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Friends</span>
+                </a>
+                <a href="progress.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="tools.html" class="nav-link active">
+                    <i class="fas fa-wrench"></i>
+                    <span>Tools</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="container-fluid px-4">
+                <div class="page-description">
+                    <h1>Learning Tools & Resources</h1>
+                    <p>Access a comprehensive suite of learning tools and resources designed to enhance your learning experience.</p>
+                </div>
+
+                <!-- Tools Grid -->
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Attendance Calculator</h3>
+                        <p>Calculate your attendance percentage and required attendance to maintain minimum percentage.</p>
+                        <a href="attendance-calculator.html" class="btn btn-primary">Launch</a>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Code Editor</h3>
+                        <p>Write and compile code with real-time syntax highlighting.</p>
+                        <a href="code-editor.html" class="btn btn-primary">Launch</a>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-chalkboard"></i>
+                        </div>
+                        <h3>Whiteboard</h3>
+                        <p>Create diagrams and visualize concepts with our virtual whiteboard.</p>
+                        <a href="whiteboard.html" class="btn btn-primary">Launch</a>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Calendar</h3>
+                        <p>Organize your study schedule and track important deadlines.</p>
+                        <a href="calendar.html" class="btn btn-primary">Launch</a>
+                    </div>
+                </div>
+
+                <!-- Todo List -->
+                <div class="todo-section">
+                    <div class="section-header">
+                        <h2>My Tasks</h2>
+                    </div>
+                    <div class="todo-container">
+                        <div class="todo-input-group">
+                            <input type="text" id="todo-input" placeholder="Add a new task...">
+                            <button id="add-todo" class="btn btn-primary">Add</button>
+                        </div>
+                        <div class="todo-filters">
+                            <button class="btn active" data-filter="all">All</button>
+                            <button class="btn" data-filter="active">Active</button>
+                            <button class="btn" data-filter="completed">Completed</button>
+                        </div>
+                        <div id="todo-list" class="todo-list"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Pomodoro Timer -->
+            <div class="tool-card mb-4">
+                <div class="tool-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="tool-title">Pomodoro Timer</h3>
+                <div class="timer-settings">
+                    <div class="timer-setting">
+                        <label>Focus Time (minutes)</label>
+                        <input type="number" class="form-control" id="focus-time" value="25" min="1" max="60">
+                    </div>
+                    <div class="timer-setting">
+                        <label>Break Time (minutes)</label>
+                        <input type="number" class="form-control" id="break-time" value="5" min="1" max="30">
+                    </div>
+                </div>
+                <div class="timer-display" id="pomodoro-display">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" id="start-pomodoro">Start</button>
+                    <button class="btn btn-secondary" id="reset-pomodoro">Reset</button>
+                </div>
+            </div>
+
+            <!-- Stopwatch -->
+            <div class="tool-card mb-4">
+                <div class="tool-icon">
+                    <i class="fas fa-stopwatch"></i>
+                </div>
+                <h3 class="tool-title">Stopwatch</h3>
+                <div class="timer-display" id="stopwatch-display">00:00:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-primary" id="start-stopwatch">Start</button>
+                    <button class="btn btn-warning" id="lap-stopwatch">Lap</button>
+                    <button class="btn btn-secondary" id="reset-stopwatch">Reset</button>
+                </div>
+                <div class="lap-times">
+                    <h4>Lap Times</h4>
+                    <div id="lap-list"></div>
+                </div>
+            </div>
+
+            <!-- Calculator -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="tool-title">Calculator</h3>
+                <div class="calculator-display" id="calculator-display">0</div>
+                <div class="calculator-buttons">
+                    <button class="calculator-btn" onclick="clearCalculator()">C</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('(')">(</button>
+                    <button class="calculator-btn" onclick="appendToDisplay(')')">)</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('/')">/</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('7')">7</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('8')">8</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('9')">9</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('*')">×</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('4')">4</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('5')">5</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('6')">6</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('-')">-</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('1')">1</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('2')">2</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('3')">3</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('+')">+</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('0')">0</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('.')">.</button>
+                    <button class="calculator-btn" onclick="deleteLastChar()">⌫</button>
+                    <button class="calculator-btn equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="todo.js"></script>
+    <script>
+        // Pomodoro Timer
+        let pomodoroInterval;
+        let pomodoroTimeLeft;
+        let isPomodoroRunning = false;
+        let isBreak = false;
+
+        function startPomodoro() {
+            if (!isPomodoroRunning) {
+                const focusTime = parseInt(document.getElementById('focus-time').value) * 60;
+                const breakTime = parseInt(document.getElementById('break-time').value) * 60;
+                
+                isPomodoroRunning = true;
+                document.getElementById('start-pomodoro').textContent = 'Pause';
+                document.getElementById('start-pomodoro').classList.remove('btn-success');
+                document.getElementById('start-pomodoro').classList.add('btn-warning');
+                
+                if (!pomodoroTimeLeft) {
+                    pomodoroTimeLeft = focusTime;
+                    isBreak = false;
+                }
+                
+                pomodoroInterval = setInterval(() => {
+                    pomodoroTimeLeft--;
+                    updatePomodoroDisplay();
+                    
+                    if (pomodoroTimeLeft === 0) {
+                        clearInterval(pomodoroInterval);
+                        isPomodoroRunning = false;
+                        document.getElementById('start-pomodoro').textContent = 'Start';
+                        document.getElementById('start-pomodoro').classList.remove('btn-warning');
+                        document.getElementById('start-pomodoro').classList.add('btn-success');
+                        
+                        if (!isBreak) {
+                            pomodoroTimeLeft = breakTime;
+                            isBreak = true;
+                            alert('Focus session completed! Take a break.');
+                            startPomodoro();
+                        } else {
+                            pomodoroTimeLeft = null;
+                            isBreak = false;
+                            alert('Break completed! Ready for next focus session.');
+                        }
+                    }
+                }, 1000);
+            } else {
+                clearInterval(pomodoroInterval);
+                isPomodoroRunning = false;
+                document.getElementById('start-pomodoro').textContent = 'Start';
+                document.getElementById('start-pomodoro').classList.remove('btn-warning');
+                document.getElementById('start-pomodoro').classList.add('btn-success');
+            }
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomodoroInterval);
+            isPomodoroRunning = false;
+            pomodoroTimeLeft = null;
+            isBreak = false;
+            document.getElementById('start-pomodoro').textContent = 'Start';
+            document.getElementById('start-pomodoro').classList.remove('btn-warning');
+            document.getElementById('start-pomodoro').classList.add('btn-success');
+            updatePomodoroDisplay();
+        }
+
+        function updatePomodoroDisplay() {
+            const minutes = Math.floor(pomodoroTimeLeft / 60);
+            const seconds = pomodoroTimeLeft % 60;
+            document.getElementById('pomodoro-display').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Stopwatch
+        let stopwatchInterval;
+        let stopwatchTime = 0;
+        let stopwatchRunning = false;
+        let lapCount = 0;
+        let lapTimes = [];
+
+        function startStopwatch() {
+            if (!stopwatchRunning) {
+                stopwatchRunning = true;
+                document.getElementById('start-stopwatch').textContent = 'Pause';
+                stopwatchInterval = setInterval(updateStopwatch, 10);
+            } else {
+                stopwatchRunning = false;
+                document.getElementById('start-stopwatch').textContent = 'Start';
+                clearInterval(stopwatchInterval);
+            }
+        }
+
+        function lapStopwatch() {
+            if (stopwatchRunning) {
+                lapCount++;
+                lapTimes.push(stopwatchTime);
+                
+                const lapItem = document.createElement('div');
+                lapItem.className = 'lap-item';
+                lapItem.innerHTML = `
+                    <span>Lap ${lapCount}</span>
+                    <span>${formatTime(stopwatchTime)}</span>
+                `;
+                document.getElementById('lap-list').insertBefore(lapItem, document.getElementById('lap-list').firstChild);
+            }
+        }
+
+        function resetStopwatch() {
+            stopwatchRunning = false;
+            document.getElementById('start-stopwatch').textContent = 'Start';
+            clearInterval(stopwatchInterval);
+            stopwatchTime = 0;
+            lapCount = 0;
+            lapTimes = [];
+            document.getElementById('stopwatch-display').textContent = formatTime(0);
+            document.getElementById('lap-list').innerHTML = '';
+        }
+
+        function updateStopwatch() {
+            stopwatchTime += 10;
+            document.getElementById('stopwatch-display').textContent = formatTime(stopwatchTime);
+        }
+
+        function formatTime(ms) {
+            const hours = Math.floor(ms / 3600000);
+            const minutes = Math.floor((ms % 3600000) / 60000);
+            const seconds = Math.floor((ms % 60000) / 1000);
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Calculator
+        function appendToDisplay(value) {
+            const display = document.getElementById('calculator-display');
+            if (display.textContent === '0' && value !== '.') {
+                display.textContent = value;
+            } else {
+                display.textContent += value;
+            }
+        }
+
+        function clearCalculator() {
+            document.getElementById('calculator-display').textContent = '0';
+        }
+
+        function deleteLastChar() {
+            const display = document.getElementById('calculator-display');
+            if (display.textContent.length > 1) {
+                display.textContent = display.textContent.slice(0, -1);
+            } else {
+                display.textContent = '0';
+            }
+        }
+
+        function calculate() {
+            const display = document.getElementById('calculator-display');
+            try {
+                const result = eval(display.textContent);
+                display.textContent = Number.isInteger(result) ? result : result.toFixed(2);
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('start-pomodoro').addEventListener('click', startPomodoro);
+        document.getElementById('reset-pomodoro').addEventListener('click', resetPomodoro);
+        document.getElementById('start-stopwatch').addEventListener('click', startStopwatch);
+        document.getElementById('lap-stopwatch').addEventListener('click', lapStopwatch);
+        document.getElementById('reset-stopwatch').addEventListener('click', resetStopwatch);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study - Syntax Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .study-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .study-tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .study-tool-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+
+        .tool-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #212529;
+        }
+
+        .tool-description {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: 500;
+            text-align: center;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-controls .btn {
+            width: 100%;
+            padding: 0.5rem;
+        }
+
+        .timer-settings {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-setting {
+            flex: 1;
+        }
+
+        .timer-setting label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .calculator-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: right;
+            font-family: monospace;
+            font-size: 1.5rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calculator-btn {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-btn:hover {
+            background: #e9ecef;
+        }
+
+        .calculator-btn.operator {
+            background: #e3f2fd;
+            color: #0d6efd;
+        }
+
+        .calculator-btn.equals {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .language-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .language-buttons .btn {
+            min-width: 100px;
+        }
+
+        .video-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .content-card::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-card::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .content-card::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .content-card::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .placeholder-text {
+            color: #6c757d;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+            white-space: pre-line;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress {
+            flex: 1;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: #0d6efd;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-counter {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #212529;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            color: #212529;
+        }
+
+        .option-btn:hover {
+            border-color: #0d6efd;
+            background: #f8f9fa;
+        }
+
+        .option-btn.selected {
+            border-color: #0d6efd;
+            background: #e7f1ff;
+        }
+
+        .option-btn.correct {
+            border-color: #198754;
+            background: #d1e7dd;
+        }
+
+        .option-btn.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .quiz-feedback {
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            background: #d1e7dd;
+            color: #0f5132;
+            display: block;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #f8d7da;
+            color: #842029;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container-fluid px-4">
+            <button class="navbar-toggler border-0" type="button" id="sidebar-toggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="#">Syntax</a>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="study.html" class="nav-link active">
+                    <i class="fas fa-book"></i>
+                    <span>Study</span>
+                </a>
+                <a href="friends.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Friends</span>
+                </a>
+                <a href="progress.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="tools.html" class="nav-link">
+                    <i class="fas fa-wrench"></i>
+                    <span>Tools</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="container-fluid px-4">
+                <div class="page-description">
+                    <h1>Study Dashboard</h1>
+                    <p>Welcome to your personalized study space. Access your courses, materials, and study tools.</p>
+                </div>
+
+                <!-- Programming Languages Section -->
+                <div class="programming-section mt-4">
+                    <h2 class="section-title">Programming Languages</h2>
+                    <div class="language-buttons mb-3">
+                        <button class="btn btn-outline-primary me-2 mb-2" data-language="python">Python</button>
+                        <button class="btn btn-outline-primary me-2 mb-2" data-language="javascript">JavaScript</button>
+                        <button class="btn btn-outline-primary me-2 mb-2" data-language="java">Java</button>
+                        <button class="btn btn-outline-primary me-2 mb-2" data-language="cpp">C++</button>
+                        <button class="btn btn-outline-primary mb-2" data-language="php">PHP</button>
+                    </div>
+                    
+                    <!-- Video Container -->
+                    <div class="video-container mb-4" style="display: none;">
+                        <div class="ratio ratio-16x9">
+                            <iframe id="language-video" 
+                                src="" 
+                                title="Programming Language Tutorial" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content Section -->
+                <div class="text-content-section">
+                    <h2 class="section-title">Learning Resources</h2>
+                    <div class="content-card">
+                        <p class="placeholder-text" id="language-description">
+                            Select a programming language to view its learning resources and documentation.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quiz Section -->
+                <div class="quiz-section mt-4" style="display: none;" id="quiz-container">
+                    <h2 class="section-title">Knowledge Check</h2>
+                    <div class="quiz-card">
+                        <div class="quiz-progress mb-3">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" id="quiz-progress" style="width: 0%"></div>
+                            </div>
+                            <span class="quiz-counter" id="quiz-counter">Question 1/5</span>
+                        </div>
+                        <div class="question-container">
+                            <h3 class="question-text" id="question-text">Question goes here</h3>
+                            <div class="options-container" id="options-container">
+                                <!-- Options will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        <div class="quiz-controls mt-3">
+                            <button class="btn btn-primary" id="check-answer" style="display: none;">Check Answer</button>
+                            <button class="btn btn-success" id="next-question" style="display: none;">Next Question</button>
+                            <button class="btn btn-primary" id="restart-quiz" style="display: none;">Restart Quiz</button>
+                        </div>
+                        <div class="quiz-feedback mt-3" id="quiz-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Pomodoro Timer -->
+            <div class="study-tool-card mb-4">
+                <div class="tool-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="tool-title">Pomodoro Timer</h3>
+                <div class="timer-settings">
+                    <div class="timer-setting">
+                        <label>Focus Time (minutes)</label>
+                        <input type="number" class="form-control" id="focus-time" value="25" min="1" max="60">
+                    </div>
+                    <div class="timer-setting">
+                        <label>Break Time (minutes)</label>
+                        <input type="number" class="form-control" id="break-time" value="5" min="1" max="30">
+                    </div>
+                </div>
+                <div class="timer-display" id="pomodoro-display">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" id="start-pomodoro">Start</button>
+                    <button class="btn btn-secondary" id="reset-pomodoro">Reset</button>
+                </div>
+            </div>
+
+            <!-- Calculator -->
+            <div class="study-tool-card mb-4">
+                <div class="tool-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="tool-title">Calculator</h3>
+                <div class="calculator-display" id="calculator-display">0</div>
+                <div class="calculator-buttons">
+                    <button class="calculator-btn" onclick="clearCalculator()">C</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('(')">(</button>
+                    <button class="calculator-btn" onclick="appendToDisplay(')')">)</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('/')">/</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('7')">7</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('8')">8</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('9')">9</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('*')">×</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('4')">4</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('5')">5</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('6')">6</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('-')">-</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('1')">1</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('2')">2</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('3')">3</button>
+                    <button class="calculator-btn operator" onclick="appendToDisplay('+')">+</button>
+                    
+                    <button class="calculator-btn" onclick="appendToDisplay('0')">0</button>
+                    <button class="calculator-btn" onclick="appendToDisplay('.')">.</button>
+                    <button class="calculator-btn" onclick="deleteLastChar()">⌫</button>
+                    <button class="calculator-btn equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+
+            <!-- Whiteboard -->
+            <div class="study-tool-card mb-4">
+                <div class="tool-icon">
+                    <i class="fas fa-chalkboard"></i>
+                </div>
+                <h3 class="tool-title">Whiteboard</h3>
+                <p class="tool-description">Create diagrams and visualize concepts with our virtual whiteboard.</p>
+                <a href="whiteboard.html" class="btn btn-primary">Launch Whiteboard</a>
+            </div>
+
+            <!-- Code Editor -->
+            <div class="study-tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="tool-title">Code Editor</h3>
+                <p class="tool-description">Write and compile code with real-time syntax highlighting.</p>
+                <a href="code-editor.html" class="btn btn-primary">Launch Code Editor</a>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Pomodoro Timer
+        let pomodoroInterval;
+        let pomodoroTimeLeft;
+        let isPomodoroRunning = false;
+        let isBreak = false;
+
+        function startPomodoro() {
+            if (!isPomodoroRunning) {
+                const focusTime = parseInt(document.getElementById('focus-time').value) * 60;
+                const breakTime = parseInt(document.getElementById('break-time').value) * 60;
+                
+                isPomodoroRunning = true;
+                document.getElementById('start-pomodoro').textContent = 'Pause';
+                document.getElementById('start-pomodoro').classList.remove('btn-success');
+                document.getElementById('start-pomodoro').classList.add('btn-warning');
+                
+                if (!pomodoroTimeLeft) {
+                    pomodoroTimeLeft = focusTime;
+                    isBreak = false;
+                }
+                
+                pomodoroInterval = setInterval(() => {
+                    pomodoroTimeLeft--;
+                    updatePomodoroDisplay();
+                    
+                    if (pomodoroTimeLeft === 0) {
+                        clearInterval(pomodoroInterval);
+                        isPomodoroRunning = false;
+                        document.getElementById('start-pomodoro').textContent = 'Start';
+                        document.getElementById('start-pomodoro').classList.remove('btn-warning');
+                        document.getElementById('start-pomodoro').classList.add('btn-success');
+                        
+                        if (!isBreak) {
+                            pomodoroTimeLeft = breakTime;
+                            isBreak = true;
+                            alert('Focus session completed! Take a break.');
+                            startPomodoro();
+                        } else {
+                            pomodoroTimeLeft = null;
+                            isBreak = false;
+                            alert('Break completed! Ready for next focus session.');
+                        }
+                    }
+                }, 1000);
+            } else {
+                clearInterval(pomodoroInterval);
+                isPomodoroRunning = false;
+                document.getElementById('start-pomodoro').textContent = 'Start';
+                document.getElementById('start-pomodoro').classList.remove('btn-warning');
+                document.getElementById('start-pomodoro').classList.add('btn-success');
+            }
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomodoroInterval);
+            isPomodoroRunning = false;
+            pomodoroTimeLeft = null;
+            isBreak = false;
+            document.getElementById('start-pomodoro').textContent = 'Start';
+            document.getElementById('start-pomodoro').classList.remove('btn-warning');
+            document.getElementById('start-pomodoro').classList.add('btn-success');
+            updatePomodoroDisplay();
+        }
+
+        function updatePomodoroDisplay() {
+            const minutes = Math.floor(pomodoroTimeLeft / 60);
+            const seconds = pomodoroTimeLeft % 60;
+            document.getElementById('pomodoro-display').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Calculator
+        function appendToDisplay(value) {
+            const display = document.getElementById('calculator-display');
+            if (display.textContent === '0' && value !== '.') {
+                display.textContent = value;
+            } else {
+                display.textContent += value;
+            }
+        }
+
+        function clearCalculator() {
+            document.getElementById('calculator-display').textContent = '0';
+        }
+
+        function deleteLastChar() {
+            const display = document.getElementById('calculator-display');
+            if (display.textContent.length > 1) {
+                display.textContent = display.textContent.slice(0, -1);
+            } else {
+                display.textContent = '0';
+            }
+        }
+
+        function calculate() {
+            const display = document.getElementById('calculator-display');
+            try {
+                const result = eval(display.textContent);
+                display.textContent = Number.isInteger(result) ? result : result.toFixed(2);
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('start-pomodoro').addEventListener('click', startPomodoro);
+        document.getElementById('reset-pomodoro').addEventListener('click', resetPomodoro);
+
+        // Language Video Handler
+        document.querySelectorAll('.language-buttons .btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const language = this.dataset.language;
+                const videoContainer = document.querySelector('.video-container');
+                const videoFrame = document.getElementById('language-video');
+                const descriptionText = document.getElementById('language-description');
+                
+                // Show video container
+                videoContainer.style.display = 'block';
+                
+                // Clear previous video
+                videoFrame.src = '';
+                
+                // Update description text and video based on language
+                if (language === 'python') {
+                    videoFrame.src = 'https://www.youtube.com/embed/ix9cRaBkVe0';
+                    descriptionText.textContent = 'Summary\n' +
+                        'In this comprehensive video, the instructor covers everything you need to know to start coding with Python, providing hands-on guidance and practical exercises. Starting with the basics, such as installing Python and PyCharm, the video progresses through essential programming concepts like variables, data types (strings, integers, floats, booleans), type casting, and user input. It also delves into conditional statements, loops (while and for), and string indexing, ensuring a strong foundation in Python fundamentals. The video further explores collections such as lists, sets, tuples, and dictionaries, and explains their unique features and use cases. Moving into object-oriented programming, the instructor introduces classes, constructors, inheritance, and polymorphism. Exception handling, file handling, date and time manipulation, and GUI development with PyQt5 are also covered, culminating in a practical project—a working weather app that fetches real-time weather data from an API.\n\n' +
+
+                        'Highlights\n' +
+                        '• Install Python and PyCharm: Learn how to download and set up the Python interpreter and PyCharm IDE\n' +
+                        '• Variables and Data Types: Understand strings, integers, floats, and booleans as the foundational data types in Python\n' +
+                        '• Type Casting: Explore how to convert variables between data types to manipulate and display information accurately\n' +
+                        '• User Input: Practice accepting and handling user input, including conditional checks and type conversions\n' +
+                        '• Conditional Statements: Dive into if, elif, and else statements for decision-making in Python\n' +
+                        '• Loops: Master while and for loops, including nested loops and their applications\n' +
+                        '• Date and Time: Learn to work with dates, times, and formatting them using Python\'s datetime module\n' +
+                        '• File Handling: Discover how to read, write, and handle exceptions when working with files in Python\n' +
+                        '• GUI Development: Build a digital clock widget using PyQt5, covering layouts, stylesheets, and widget functionality\n' +
+                        '• Weather App: Construct a real-time weather app that fetches data from an API\n\n' +
+
+                        'Key Insights\n\n' +
+                        'Python Setup for Beginners:\n' +
+                        'Installing Python and choosing the right IDE (like PyCharm) is crucial for smooth learning. The instructor emphasizes adding the Python executable to PATH during installation for easy access, which simplifies future operations and reduces path-related issues.\n\n' +
+
+                        'Data Types and Type Casting:\n' +
+                        'Understanding data types like strings, integers, floats, and booleans is fundamental. Type casting is particularly useful when handling user inputs, as they are always strings by default. Type casting bridges the gap between data types, allowing developers to convert variables into appropriate formats for calculations or concatenations.\n\n' +
+
+                        'Control Structures and Loops:\n' +
+                        'Conditional statements and loops are the backbone of programming logic. While loops are ideal for scenarios requiring indefinite repetition, such as user input validation, for loops shine when iterating over fixed ranges or collections.\n\n' +
+
+                        'Collections in Python:\n' +
+                        'Lists, sets, tuples, and dictionaries each offer distinct advantages. Lists are ordered and mutable, while sets are unordered and avoid duplicates. Tuples are faster and immutable, and dictionaries provide key-value pairing for efficient data storage.\n\n' +
+
+                        'Object-Oriented Programming:\n' +
+                        'Classes and objects enable code reuse and scalability. By defining attributes and methods within a class, you can create reusable blueprints for objects. OOP principles enhance modularity and maintainability.\n\n' +
+
+                        'Exception Handling:\n' +
+                        'Gracefully managing errors prevents abrupt program termination. Try-except-finally blocks allow developers to anticipate and handle potential runtime issues. Exception handling is vital for robust software.\n\n' +
+
+                        'API Integration and GUI Development:\n' +
+                        'The course culminates in building a real-time weather app that demonstrates the integration of Python\'s data-fetching capabilities with GUI frameworks like PyQt5. This project combines API calls, JSON parsing, exception handling, and creating user-friendly interfaces.';
+                } else if (language === 'javascript') {
+                    videoFrame.src = 'https://www.youtube.com/embed/lfmg-EJ8gm4';
+                    descriptionText.textContent = 'Summary\n' +
+                        'In this comprehensive video, the instructor covers foundational and advanced concepts of JavaScript, focusing on how to implement dynamic and interactive web applications using HTML, CSS, and JavaScript. Starting with basic setup and structure, the video explains essential topics like variables, data types (numbers, strings, booleans), arithmetic operators, and comments. It then dives into more complex areas such as DOM manipulation, event handling, conditionals (if, else if, switch), loops (while, for, forEach, map, filter, reduce), and callbacks.\n\n' +
+
+                        'Highlights\n' +
+                        '• Template Literals: Backticks (`) allow embedding variables within strings, improving readability and flexibility\n' +
+                        '• Variable Scope: Understanding the difference between let and const, and how variables behave in local and global scopes\n' +
+                        '• Arrays: Arrays hold multiple values and support methods like push, pop, splice, and iteration techniques\n' +
+                        '• Object-Oriented Programming: Classes simplify object creation and help enforce the DRY principle\n' +
+                        '• DOM Navigation: Techniques to traverse the HTML tree structure effectively\n' +
+                        '• Mouse Events: Handling click, hover, and other interaction events\n' +
+                        '• Callbacks: A method chaining approach to manage asynchronous operations\n' +
+                        '• Promises: An alternative to callbacks, offering cleaner syntax and better error handling\n' +
+                        '• API Integration: Fetching JSON data from APIs to create dynamic content\n' +
+                        '• Error Handling: Using try, catch, and finally blocks for error management\n\n' +
+
+                        'Key Insights\n\n' +
+                        'Template Literals Enhance Readability:\n' +
+                        'Template literals improve readability by reducing the need for repetitive string concatenation and escaping characters. They also support multi-line strings, making code cleaner and more maintainable.\n\n' +
+
+                        'Proper Use of Variables:\n' +
+                        'Understanding the distinction between let and const is crucial. While let allows reassignment, const ensures immutability, preventing accidental overwrites and making code predictable.\n\n' +
+
+                        'Arrays and Iteration Methods:\n' +
+                        'JavaScript arrays offer powerful methods like forEach, map, filter, and reduce. These methods enable concise and efficient data transformation and filtering. Iteration methods reduce boilerplate code and enhance readability.\n\n' +
+
+                        'Classes and OOP:\n' +
+                        'Classes in ES6 provide a structured way to create objects and manage shared properties efficiently. Using inheritance, classes allow code reuse, reducing redundancy. Classes promote modularity and scalability in JavaScript applications.\n\n' +
+
+                        'Event Handling:\n' +
+                        'Event listeners bridge the gap between user interactions and JavaScript actions. They are essential for building modern web apps, enabling functionalities like dropdown menus, modal windows, and game mechanics.\n\n' +
+
+                        'Asynchronous Programming:\n' +
+                        'Promises simplify handling asynchronous operations compared to traditional callbacks. They eliminate callback hell and introduce cleaner methods for success and error handling.\n\n' +
+
+                        'API Integration:\n' +
+                        'Leveraging APIs in JavaScript allows for real-time data integration, enabling features like live updates, geolocation services, and personalized experiences. Proper error handling ensures robust data fetching and processing.';
+                } else if (language === 'java') {
+                    videoFrame.src = 'https://www.youtube.com/embed/xTtL8E4LzTQ';
+                    descriptionText.textContent = 'Java is a robust, object-oriented programming language that runs on the Java Virtual Machine (JVM). It\'s widely used in enterprise applications, Android development, and large-scale systems.';
+                } else if (language === 'cpp') {
+                    videoFrame.src = 'https://www.youtube.com/embed/-TkoO8Z07hI';
+                    descriptionText.textContent = 'C++ is a powerful systems programming language that extends C with object-oriented features. It\'s used in game development, embedded systems, and performance-critical applications.';
+                } else if (language === 'php') {
+                    videoFrame.src = 'https://www.youtube.com/embed/zZ6vybT1HQs';
+                    descriptionText.textContent = 'PHP is a server-side scripting language designed for web development. It\'s the foundation of many content management systems and powers a significant portion of the web.';
+                }
+
+                // Handle video load error
+                videoFrame.onerror = function() {
+                    videoContainer.style.display = 'none';
+                    descriptionText.textContent = 'Sorry, the video could not be loaded. Please try again later.';
+                };
+                
+                // Update active state of buttons
+                document.querySelectorAll('.language-buttons .btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        const quizData = {
+            python: [
+                {
+                    question: "What is the correct way to declare a variable in Python?",
+                    options: [
+                        "var x = 5",
+                        "x = 5",
+                        "let x = 5",
+                        "const x = 5"
+                    ],
+                    correct: 1,
+                    explanation: "In Python, variables are declared by simply assigning a value using the '=' operator. No special keywords like 'var', 'let', or 'const' are needed."
+                },
+                {
+                    question: "Which of the following is a mutable data structure in Python?",
+                    options: [
+                        "Tuple",
+                        "String",
+                        "List",
+                        "Integer"
+                    ],
+                    correct: 2,
+                    explanation: "Lists in Python are mutable, meaning their contents can be changed after creation. Tuples and strings are immutable."
+                },
+                {
+                    question: "What is the purpose of the 'if __name__ == \"__main__\":' statement?",
+                    options: [
+                        "It's a required syntax for all Python programs",
+                        "It defines the main function of the program",
+                        "It checks if the module is being run directly or being imported",
+                        "It initializes the Python interpreter"
+                    ],
+                    correct: 2,
+                    explanation: "This statement checks whether the Python script is being run directly or being imported as a module in another script."
+                },
+                {
+                    question: "How do you create a virtual environment in Python?",
+                    options: [
+                        "python create venv",
+                        "python -m venv myenv",
+                        "pip install venv",
+                        "virtualenv create"
+                    ],
+                    correct: 1,
+                    explanation: "The command 'python -m venv myenv' creates a new virtual environment named 'myenv' using Python's built-in venv module."
+                },
+                {
+                    question: "What is the purpose of the 'try-except' block in Python?",
+                    options: [
+                        "To define a new function",
+                        "To create a loop",
+                        "To handle exceptions and errors",
+                        "To import modules"
+                    ],
+                    correct: 2,
+                    explanation: "Try-except blocks are used for exception handling in Python, allowing you to gracefully handle errors that might occur during program execution."
+                }
+            ],
+            javascript: [
+                {
+                    question: "What is the difference between 'let' and 'const' in JavaScript?",
+                    options: [
+                        "There is no difference",
+                        "let is block-scoped, const is function-scoped",
+                        "const cannot be reassigned, let can be",
+                        "let is faster than const"
+                    ],
+                    correct: 2,
+                    explanation: "const creates a variable that cannot be reassigned, while let allows reassignment. Both are block-scoped."
+                },
+                {
+                    question: "What is a closure in JavaScript?",
+                    options: [
+                        "A way to close the browser window",
+                        "A function that has access to variables in its outer scope",
+                        "A method to end a loop",
+                        "A type of HTML tag"
+                    ],
+                    correct: 1,
+                    explanation: "A closure is a function that has access to variables in its outer (enclosing) lexical scope, even after the outer function has returned."
+                },
+                {
+                    question: "What is the purpose of the 'async/await' keywords?",
+                    options: [
+                        "To make the code run faster",
+                        "To handle asynchronous operations more elegantly",
+                        "To create loops",
+                        "To define variables"
+                    ],
+                    correct: 1,
+                    explanation: "async/await is a syntax for handling Promises more elegantly, making asynchronous code look and behave more like synchronous code."
+                },
+                {
+                    question: "What is the DOM in JavaScript?",
+                    options: [
+                        "A programming language",
+                        "A database",
+                        "Document Object Model - interface for HTML and XML documents",
+                        "A JavaScript framework"
+                    ],
+                    correct: 2,
+                    explanation: "The DOM (Document Object Model) is a programming interface for HTML and XML documents, representing the page as a tree-like structure."
+                },
+                {
+                    question: "What is event bubbling in JavaScript?",
+                    options: [
+                        "A way to create new events",
+                        "When an event triggers on a child element and propagates up through its parents",
+                        "A method to remove events",
+                        "A type of animation"
+                    ],
+                    correct: 1,
+                    explanation: "Event bubbling is when an event triggers on the deepest target element and then propagates up through its ancestor elements in the DOM tree."
+                }
+            ],
+            java: [
+                {
+                    question: "What is the main difference between 'public static void main(String[] args)' and 'public void main(String[] args)'?",
+                    options: [
+                        "There is no difference",
+                        "static allows the method to be called without creating an instance of the class",
+                        "public allows the method to be accessed from other classes",
+                        "void determines the return type"
+                    ],
+                    correct: 1,
+                    explanation: "The static keyword allows the main method to be called without creating an instance of the class. This is crucial as the main method is the entry point of a Java program."
+                },
+                {
+                    question: "What is the difference between '==' and '.equals()' in Java?",
+                    options: [
+                        "They are exactly the same",
+                        "== compares memory references while .equals() compares content",
+                        ".equals() is faster than ==",
+                        "== works only with primitives"
+                    ],
+                    correct: 1,
+                    explanation: "== compares memory references (checks if objects point to the same memory location), while .equals() compares the actual content of objects. For String comparison, always use .equals()."
+                },
+                {
+                    question: "What is the purpose of the 'final' keyword in Java?",
+                    options: [
+                        "To end a program",
+                        "To make a variable, method, or class unchangeable",
+                        "To finalize garbage collection",
+                        "To indicate the last method in a class"
+                    ],
+                    correct: 1,
+                    explanation: "The final keyword is used to make variables constant, prevent method overriding, and prevent class inheritance. Once declared final, the value/implementation cannot be changed."
+                },
+                {
+                    question: "Which collection type should be used when you need to maintain insertion order and allow duplicates?",
+                    options: [
+                        "HashSet",
+                        "ArrayList",
+                        "TreeSet",
+                        "HashMap"
+                    ],
+                    correct: 1,
+                    explanation: "ArrayList maintains insertion order and allows duplicate elements. HashSet doesn't maintain order, TreeSet sorts elements, and HashMap is for key-value pairs."
+                },
+                {
+                    question: "What is the purpose of the 'super' keyword in Java?",
+                    options: [
+                        "To access supercomputer functionality",
+                        "To call the superclass constructor or methods",
+                        "To create a superior version of a class",
+                        "To indicate high priority code"
+                    ],
+                    correct: 1,
+                    explanation: "The super keyword is used to call the superclass's constructor or methods. It's commonly used in inheritance to access parent class members."
+                }
+            ],
+            cpp: [
+                {
+                    question: "What is the difference between a pointer and a reference in C++?",
+                    options: [
+                        "They are exactly the same",
+                        "Pointers can be reassigned and can be null, references cannot",
+                        "References are faster than pointers",
+                        "Pointers are only used in C, not C++"
+                    ],
+                    correct: 1,
+                    explanation: "Unlike pointers, references must be initialized when declared, cannot be null, and cannot be reassigned to refer to a different object. Pointers can be reassigned and can be null."
+                },
+                {
+                    question: "What is the purpose of the 'virtual' keyword in C++?",
+                    options: [
+                        "To create virtual machines",
+                        "To enable runtime polymorphism through virtual function tables",
+                        "To make variables volatile",
+                        "To create temporary objects"
+                    ],
+                    correct: 1,
+                    explanation: "The virtual keyword is used to enable runtime polymorphism. It allows a base class pointer to call the correct derived class method through virtual function tables (vtables)."
+                },
+                {
+                    question: "What is the difference between 'new' and 'malloc()'?",
+                    options: [
+                        "They are exactly the same",
+                        "new calls constructors while malloc() doesn't",
+                        "malloc() is faster than new",
+                        "new is only for C++"
+                    ],
+                    correct: 1,
+                    explanation: "new is a C++ operator that allocates memory and calls constructors, while malloc() is a C function that only allocates memory. new is type-safe and should be preferred in C++."
+                },
+                {
+                    question: "What is the purpose of the 'const' keyword in C++?",
+                    options: [
+                        "To make variables constant only during compilation",
+                        "To declare constants and prevent modifications",
+                        "To optimize code execution",
+                        "To connect to external constants"
+                    ],
+                    correct: 1,
+                    explanation: "const is used to declare constants and prevent modifications. It can be applied to variables, method parameters, and member functions to ensure they don't modify the object's state."
+                },
+                {
+                    question: "What is the difference between stack and heap memory allocation?",
+                    options: [
+                        "There is no difference",
+                        "Stack is automatic and faster, heap is manual and more flexible",
+                        "Heap is only used in large programs",
+                        "Stack is only used for arrays"
+                    ],
+                    correct: 1,
+                    explanation: "Stack memory is automatically managed and faster but limited in size. Heap memory is manually managed (using new/delete), more flexible, but slower and can lead to memory leaks if not properly managed."
+                }
+            ],
+            php: [
+                {
+                    question: "What is the difference between '==' and '===' in PHP?",
+                    options: [
+                        "They are exactly the same",
+                        "=== checks both value and type, == only checks value",
+                        "=== is used for arrays only",
+                        "== is more secure than ==="
+                    ],
+                    correct: 1,
+                    explanation: "=== is the strict comparison operator that checks both value and type, while == only checks value and performs type coercion. For example, '1' == 1 is true, but '1' === 1 is false."
+                },
+                {
+                    question: "What is the purpose of the 'isset()' function in PHP?",
+                    options: [
+                        "To set a variable's value",
+                        "To check if a variable is declared and not null",
+                        "To initialize a database connection",
+                        "To include external files"
+                    ],
+                    correct: 1,
+                    explanation: "isset() checks if a variable is declared and not null. It's commonly used to validate form inputs and check array keys before accessing them."
+                },
+                {
+                    question: "What is the difference between include and require in PHP?",
+                    options: [
+                        "They are exactly the same",
+                        "require produces a fatal error if file is not found, include only produces a warning",
+                        "include is faster than require",
+                        "require is only for functions"
+                    ],
+                    correct: 1,
+                    explanation: "require will produce a fatal error and halt the script if the file is not found, while include will only produce a warning and continue execution. Use require for essential files."
+                },
+                {
+                    question: "What is the purpose of the $_SESSION superglobal in PHP?",
+                    options: [
+                        "To store temporary files",
+                        "To store user data across multiple pages",
+                        "To handle database connections",
+                        "To process form data"
+                    ],
+                    correct: 1,
+                    explanation: "The $_SESSION superglobal is used to store user data across multiple pages during a session. It persists until the browser is closed or the session is explicitly destroyed."
+                },
+                {
+                    question: "What is the difference between GET and POST methods?",
+                    options: [
+                        "There is no difference",
+                        "GET sends data through URL, POST sends data in request body",
+                        "POST is faster than GET",
+                        "GET is more secure than POST"
+                    ],
+                    correct: 1,
+                    explanation: "GET sends data through URL parameters (visible in browser), has length limitations, and should be used for non-sensitive data. POST sends data in the request body, has no size limitation, and is more suitable for sensitive data."
+                }
+            ]
+        };
+
+        let currentQuiz = null;
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedOption = null;
+
+        function startQuiz(language) {
+            if (quizData[language]) {
+                currentQuiz = quizData[language];
+                currentQuestion = 0;
+                score = 0;
+                document.getElementById('quiz-container').style.display = 'block';
+                showQuestion();
+            }
+        }
+
+        function showQuestion() {
+            const question = currentQuiz[currentQuestion];
+            document.getElementById('quiz-counter').textContent = `Question ${currentQuestion + 1}/${currentQuiz.length}`;
+            document.getElementById('quiz-progress').style.width = `${((currentQuestion + 1) / currentQuiz.length) * 100}%`;
+            document.getElementById('question-text').textContent = question.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('check-answer').style.display = 'block';
+            document.getElementById('next-question').style.display = 'none';
+            document.getElementById('restart-quiz').style.display = 'none';
+            document.getElementById('quiz-feedback').style.display = 'none';
+            document.getElementById('quiz-feedback').className = 'quiz-feedback';
+            selectedOption = null;
+        }
+
+        function selectOption(index) {
+            selectedOption = index;
+            document.querySelectorAll('.option-btn').forEach((btn, i) => {
+                btn.classList.toggle('selected', i === index);
+            });
+            document.getElementById('check-answer').style.display = 'block';
+        }
+
+        function checkAnswer() {
+            if (selectedOption === null) return;
+
+            const question = currentQuiz[currentQuestion];
+            const isCorrect = selectedOption === question.correct;
+            const options = document.querySelectorAll('.option-btn');
+            
+            options[selectedOption].classList.add(isCorrect ? 'correct' : 'incorrect');
+            options[question.correct].classList.add('correct');
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.textContent = question.explanation;
+            feedback.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.style.display = 'block';
+
+            document.getElementById('check-answer').style.display = 'none';
+            
+            if (currentQuestion < currentQuiz.length - 1) {
+                document.getElementById('next-question').style.display = 'block';
+            } else {
+                document.getElementById('restart-quiz').style.display = 'block';
+            }
+
+            if (isCorrect) score++;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            showQuestion();
+        }
+
+        // Modify the existing language button click handler
+        document.querySelectorAll('.language-buttons .btn').forEach(button => {
+            const originalHandler = button.onclick;
+            button.onclick = function() {
+                const language = this.dataset.language;
+                if (originalHandler) originalHandler.call(this);
+                startQuiz(language);
+            };
+        });
+
+        // Add event listeners for quiz controls
+        document.getElementById('check-answer').addEventListener('click', checkAnswer);
+        document.getElementById('next-question').addEventListener('click', nextQuestion);
+        document.getElementById('restart-quiz').addEventListener('click', restartQuiz);
+    </script>
+</body>
+</html> 

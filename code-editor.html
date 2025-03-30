@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor - Syntax Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .editor-container {
+            height: calc(100vh - 60px);
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-header {
+            background: white;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-selector {
+            min-width: 200px;
+        }
+
+        .editor-main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .code-editor {
+            flex: 1;
+            background: #1e1e1e;
+            padding: 1rem;
+            color: #fff;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow: auto;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        .editor-sidebar {
+            width: 300px;
+            background: #f8f9fa;
+            border-left: 1px solid #dee2e6;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .output-panel {
+            background: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            padding: 1rem;
+            min-height: 150px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .output-title {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+
+        .output-content {
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+        .editor-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-run {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-run:hover {
+            background: #218838;
+            color: white;
+        }
+
+        .btn-clear {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #c82333;
+            color: white;
+        }
+
+        .template-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .template-title {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .template-item {
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .template-item:hover {
+            background: #e9ecef;
+        }
+
+        .template-item i {
+            margin-right: 0.5rem;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container-fluid px-4">
+            <button class="navbar-toggler border-0" type="button" id="sidebar-toggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="#">Syntax</a>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="study.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Study</span>
+                </a>
+                <a href="friends.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Friends</span>
+                </a>
+                <a href="progress.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="social.html" class="nav-link">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Social</span>
+                </a>
+                <a href="tools.html" class="nav-link active">
+                    <i class="fas fa-wrench"></i>
+                    <span>Tools</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="editor-container">
+                <!-- Editor Header -->
+                <div class="editor-header">
+                    <select class="form-select language-selector">
+                        <option value="">Select Language</option>
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="csharp">C#</option>
+                        <option value="php">PHP</option>
+                        <option value="ruby">Ruby</option>
+                        <option value="swift">Swift</option>
+                    </select>
+                    <div class="editor-controls">
+                        <button class="btn btn-run">
+                            <i class="fas fa-play"></i> Run
+                        </button>
+                        <button class="btn btn-clear">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Editor Main Area -->
+                <div class="editor-main">
+                    <!-- Code Editor -->
+                    <div class="code-editor" contenteditable="true">
+// Write your code here
+</div>
+
+                    <!-- Editor Sidebar -->
+                    <div class="editor-sidebar">
+                        <!-- Code Templates -->
+                        <div class="template-section">
+                            <h6 class="template-title">Code Templates</h6>
+                            <ul class="template-list">
+                                <li class="template-item">
+                                    <i class="fas fa-file-code"></i> Hello World
+                                </li>
+                                <li class="template-item">
+                                    <i class="fas fa-file-code"></i> Basic Function
+                                </li>
+                                <li class="template-item">
+                                    <i class="fas fa-file-code"></i> Class Template
+                                </li>
+                                <li class="template-item">
+                                    <i class="fas fa-file-code"></i> API Request
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Common Snippets -->
+                        <div class="template-section">
+                            <h6 class="template-title">Common Snippets</h6>
+                            <ul class="template-list">
+                                <li class="template-item">
+                                    <i class="fas fa-code"></i> For Loop
+                                </li>
+                                <li class="template-item">
+                                    <i class="fas fa-code"></i> While Loop
+                                </li>
+                                <li class="template-item">
+                                    <i class="fas fa-code"></i> Try-Catch Block
+                                </li>
+                                <li class="template-item">
+                                    <i class="fas fa-code"></i> Function Definition
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="output-panel">
+                    <div class="output-title">Output</div>
+                    <div class="output-content">
+                        // Your code output will appear here
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
