@@ -67,7 +67,7 @@ A modern, collaborative learning platform designed to make programming education
 git clone https://github.com/yourusername/syntax-learn.git
 ```
 
-2. Open `splash.html` in your browser
+2. Open `index.html` in your browser
 3. Explore the platform!
 
 ## 📱 Responsive Design
