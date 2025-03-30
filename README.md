@@ -92,13 +92,10 @@ Contributions are welcome! Feel free to:
 - 💡 Suggest features
 - 🔧 Submit pull requests
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- 👥 All contributors
+- 👥 Team AquaByte
 - 🎨 Design inspiration from modern learning platforms
 - 📚 Educational resources and programming quotes
 
